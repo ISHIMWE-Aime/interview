@@ -1,0 +1,215 @@
+paths:
+  #create task
+  /create-task:
+    post:
+      tags: [To do list]
+      summary: Create a task
+      description: This route creates a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+
+  #update task
+  /update-task/{id}:
+    put:
+      tags: [To do list]
+      summary: Update a task
+      description: This route updates a task
+      parameters:
+        - in: path
+          name: id  
+          schema: 
+            type: string
+          required: true
+          description: The id of the task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+  
+  #get one task
+  /get-one-task/{id}:
+    get:
+      tags: [To do list]
+      summary: Get a task
+      description: This route gets a task
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The id of the task
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+
+  #get all tasks
+  /get-tasks:
+    get:
+      tags: [To do list]
+      summary: Get all tasks
+      description: This route gets all tasks
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema" 
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+
+  #delete task
+  /delete-one-task/{id}:
+    delete:
+      tags: [To do list]
+      summary: Delete a task
+      description: This route deletes a task
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The id of the task
+      responses:
+        200:
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+
+  #delete all tasks
+  /delete-tasks:
+    delete:
+      tags: [To do list]
+      summary: Delete all tasks
+      description: This route deletes all tasks
+      responses:
+        200:
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSchema"
+
+#Schemas
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        status:
+          type: string
+        deadline:
+          type: Date
+          required: true
+    ResponseSchema:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: any
+          required: true
